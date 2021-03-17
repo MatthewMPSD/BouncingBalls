@@ -21,4 +21,15 @@ public class Ball
     this.radius = radius;
     this.color = color;
   }
+
+  public boolean checkBallCollision (Ball other)
+  {
+    double dist = Vector2.distance(this.position, other.position);
+    return dist > this.radius + other.radius;
+  }
+
+  public static Vector2 getCollisionVelocity (Ball other)
+  {
+    
+  }
 }

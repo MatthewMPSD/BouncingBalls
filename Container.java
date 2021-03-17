@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 
 public class Container extends JPanel implements Runnable
 {
-  private final int WIDTH = 512;
-  private final int HEIGHT = 512;
+  public static final int WIDTH = 512;
+  public static final int HEIGHT = 512;
   private final int DELAY = 24;
   private Thread animator;
   private long timeDiff;
@@ -26,10 +26,10 @@ public class Container extends JPanel implements Runnable
 
   public void initContainer ()
   {
-      setBackground(new Color(153, 204, 255));
+      setBackground(new Color(255, 153, 51));
       setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-      balls.add(new Ball(new Vector2(256, 256), new Vector2(0, 5), 10, new Color(255, 153, 51)));
+      balls.add(new Ball(new Vector2(256, 256), new Vector2(0, 100), 50, new Color(153, 204, 255)));
   }
 
 
@@ -53,14 +53,19 @@ public class Container extends JPanel implements Runnable
   {
     for (Ball b : balls)
     {
-      g.drawOval(b.position.x, b.position.y, b.radius*2, b.radius*2);
+      g.setColor(b.color);
+      g.fillOval((int)b.position.x, (int)b.position.y, (int)b.radius, (int)b.radius);
     }
     Toolkit.getDefaultToolkit().sync();
   }
 
   private void cycle ()
   {
-    
+    for (Ball b : balls)
+    {
+      Vector2 v = b.velocity.multiply(timeDiff/1000.0);
+      b.translate(v);
+    }
   }
 
 @Override
@@ -72,10 +77,10 @@ public class Container extends JPanel implements Runnable
 
     while (true)
     {
-      // cycle();
+      cycle();
       repaint();
 
-      timeDiff = System.currentTimeMillis() - beforeTime;
+
       sleep = DELAY - timeDiff;
 
       if (sleep < 0)
@@ -91,6 +96,8 @@ public class Container extends JPanel implements Runnable
 
         JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
       }
+
+      timeDiff = System.currentTimeMillis() - beforeTime;
 
       beforeTime = System.currentTimeMillis();
     }

@@ -41,7 +41,7 @@ public class Vector2
 
   public static double distance (Vector2 v1, Vector2 v2)
   {
-    return Math.sqrt(Math.pow((v2.x - v1.x), 2), Math.pow(v2.y - v2.y, 2))
+    return Math.sqrt(Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v2.y, 2));
   }
 
   public double magnitude ()

@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Vector2
+comment1.params=x\ y
+comment1.target=Vector2(double,\ double)
+comment10.params=
+comment10.target=Vector2\ normalized()
+comment2.params=other
+comment2.target=Vector2\ subtract(Vector2)
+comment3.params=other
+comment3.target=Vector2\ add(Vector2)
+comment4.params=other
+comment4.target=Vector2\ multiply(Vector2)
+comment5.params=other
+comment5.target=Vector2\ multiply(double)
+comment6.params=
+comment6.target=java.lang.String\ toString()
+comment7.params=other
+comment7.target=Vector2\ divide(double)
+comment8.params=v1\ v2
+comment8.target=double\ distance(Vector2,\ Vector2)
+comment9.params=
+comment9.target=double\ magnitude()
+numComments=11

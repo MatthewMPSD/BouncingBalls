@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Ball
+comment1.params=position\ velocity\ radius\ color
+comment1.target=Ball(Vector2,\ Vector2,\ int,\ java.awt.Color)
+comment10.params=b\ topLeft\ bottomRight
+comment10.target=boolean\ checkBoundaryCollisionDiscrete(Ball,\ Vector2,\ Vector2)
+comment2.params=other
+comment2.target=boolean\ checkBallCollisionDiscrete(Ball)
+comment3.params=b
+comment3.target=Ball(Ball)
+comment4.params=v
+comment4.target=void\ translate(Vector2)
+comment5.params=
+comment5.target=Vector2\ getLastPosition()
+comment6.params=v
+comment6.target=void\ move(Vector2)
+comment7.params=b\ amount\ topLeft\ bottomRight
+comment7.target=Vector2\ checkHorizontalBoundaryCollisionContinuous(Ball,\ Vector2,\ Vector2,\ Vector2)
+comment8.params=b\ amount\ topLeft\ bottomRight
+comment8.target=Vector2\ checkVerticalBoundaryCollisionContinuous(Ball,\ Vector2,\ Vector2,\ Vector2)
+comment9.params=topLeft\ bottomRight
+comment9.target=boolean\ checkBoundaryCollisionDiscrete(Vector2,\ Vector2)
+numComments=11

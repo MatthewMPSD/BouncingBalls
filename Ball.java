@@ -24,10 +24,15 @@ public class Ball
     this.color = color;
   }
 
-  public boolean checkBallCollision (Ball other)
+  public boolean checkBallCollisionDiscrete (Ball other)
   {
     double dist = Vector2.distance(this.position, other.position);
     return dist > this.radius + other.radius;
+  }
+  
+  public Vector2 checkBallCollisionContinuous (Ball other, Vector2 v)
+  {
+      
   }
 
   public Ball (Ball b)
@@ -51,19 +56,20 @@ public class Ball
 
   public void move (Vector2 v)
   {
-    Vector2 finalVectorHorizontal = checkHorizontalBoundaryCollisionContinuous(this, v, Container.TOP_LEFT_VECTOR, Container.BOTTOM_RIGHT_VECTOR);
+    Vector2 dir = v;
+    Vector2 finalVectorHorizontal = checkHorizontalBoundaryCollisionContinuous(this, dir, Container.TOP_LEFT_VECTOR, Container.BOTTOM_RIGHT_VECTOR);
     if (finalVectorHorizontal != null)
     {
       this.velocity.y *= -1;
-      this.position = finalVectorHorizontal;
+      dir = this.position.subtract(finalVectorHorizontal);
     }
-    Vector2 finalVectorVertical = checkVerticalBoundaryCollisionContinuous(this, v, Container.TOP_LEFT_VECTOR, Container.BOTTOM_RIGHT_VECTOR);
+    Vector2 finalVectorVertical = checkVerticalBoundaryCollisionContinuous(this, dir, Container.TOP_LEFT_VECTOR, Container.BOTTOM_RIGHT_VECTOR);
     if (finalVectorVertical != null)
     {
       this.velocity.x *= -1;
-      this.position = finalVectorVertical;
+      dir = this.position.subtract(finalVectorVertical);
     }
-    this.translate(v);
+    this.translate(dir);
   }
 
   public static Vector2 checkHorizontalBoundaryCollisionContinuous (Ball b, Vector2 amount, Vector2 topLeft, Vector2 bottomRight)

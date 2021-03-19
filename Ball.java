@@ -29,10 +29,32 @@ public class Ball
     double dist = Vector2.distance(this.position, other.position);
     return dist > this.radius + other.radius;
   }
-  
-  public Vector2 checkBallCollisionContinuous (Ball other, Vector2 v)
+
+  public Vector2 checkBallCollisionContinuous (Ball b, Vector2 v)
   {
-      
+    return Ball.checkBallCollisionContinuous(this, b, v);
+  }
+
+  public static Vector2 checkBallCollisionContinuous (Ball b1, Ball b2, Vector2 v)
+  {
+      Vector2 current = b1.position;
+      Vector2 next = b1.position.add(v);
+      double dist = Vector2.distance(b1.position, b2.position);
+      double targetDist = b1.radius + b2.radius;
+      double aActual = b1.position.x - b2.position.x;
+      double bActual = b1.position.y - b2.position.y;
+      double aTarget = (targetDist / dist) * aActual;
+      double bTarget = (targetDist / dist) * bActual;
+
+      Vector2 collisionVector = new Vector2(b2.position.x + aTarget, b2.position.y + bTarget);
+      if ((current.y >= collisionVector.y && collisionVector.y >= next.y) || (current.y <= collisionVector.y && collisionVector.y <= next.y) && (current.x >= collisionVector.x && collisionVector.x >= next.x) || (current.x <= collisionVector.x && collisionVector.x <= next.x))
+      {
+        return collisionVector;
+      }
+      else
+      {
+        return null;
+      }
   }
 
   public Ball (Ball b)

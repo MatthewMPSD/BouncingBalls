@@ -7,14 +7,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Ball
+public class Ball implements Collider
 {
-  Color color;
+  public Color color;
   public Vector2 position;
   public Vector2 velocity;
   public double radius;
-  
-  private Vector2 lastPosition;
+
+  private static final double DENSITY = 1;
+
+  private double mass;
+  public double getMass()
+  {
+    return this.mass;
+  }
 
   public Ball (Vector2 position, Vector2 velocity, int radius, Color color)
   {
@@ -22,6 +28,17 @@ public class Ball
     this.velocity = velocity;
     this.radius = radius;
     this.color = color;
+    this.mass = Math.PI * (this.radius * this.radius) * DENSITY;
+  }
+
+  public double getWidth ()
+  {
+    return this.radius*2;
+  }
+
+  public double getHeight()
+  {
+    return this.radius*2;
   }
 
   public boolean checkBallCollisionDiscrete (Ball other)
@@ -46,7 +63,7 @@ public class Ball
       double aTarget = (targetDist / dist) * aActual;
       double bTarget = (targetDist / dist) * bActual;
 
-      Vector2 collisionVector = new Vector2(b2.position.x + aTarget, b2.position.y + bTarget);
+      Vector2 collisionVector = new Vector2(b2.position.x + (b1.position.x < b2.position.x ? aTarget : -aTarget), b2.position.y + (b1.position.y < b2.position.y ? bTarget : -bTarget));
       if ((current.y >= collisionVector.y && collisionVector.y >= next.y) || (current.y <= collisionVector.y && collisionVector.y <= next.y) && (current.x >= collisionVector.x && collisionVector.x >= next.x) || (current.x <= collisionVector.x && collisionVector.x <= next.x))
       {
         return collisionVector;
@@ -63,17 +80,12 @@ public class Ball
     this.velocity = b.velocity;
     this.radius = b.radius;
     this.color = b.color;
+    this.mass = b.getMass();
   }
 
   public void translate (Vector2 v)
   {
-    this.lastPosition = this.position;
     this.position = this.position.add(v);
-  }
-  
-  public Vector2 getLastPosition ()
-  {
-    return this.lastPosition;
   }
 
   public void move (Vector2 v)
@@ -147,5 +159,17 @@ public class Ball
       return true;
     }
     return false;
+  }
+
+  public static Pair<Vector2, Vector2> getCollisionResponseVelocity (Ball b1, Ball b2)
+  {
+      double m1 = b1.mass;
+      double m2 = b2.mass;
+      Vector2 c1 = b1.position;
+      Vector2 c2 = b2.position;
+      Vector2 v1 = b1.velocity;
+      Vector2 v2 = b2.velocity;
+      Vector2 top1 = v1.subtract(v2) c1.subtract(c2);
+      Vector2 vHat1 = v1.subtract(((2*m1)/(m1+m2)) * (top1));
   }
 }

@@ -32,14 +32,11 @@ public class Container extends JPanel implements Runnable
       setBackground(new Color(255, 153, 51));
       setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-      balls.add(new Ball(new Vector2(123, 128), new Vector2(50, 0), 20, new Color(153, 204, 204)));
-      balls.add(new Ball(new Vector2(170, 128), new Vector2(50, 0), 42, new Color(0, 102, 255)));
-
-//      balls.add(new Ball(new Vector2(256, 100), new Vector2(34, 500), 25, new Color(153, 204, 204)));
-//      balls.add(new Ball(new Vector2(54, 156), new Vector2(50, 550), 45, new Color(0, 102, 255)));
-//      balls.add(new Ball(new Vector2(400, 147), new Vector2(34, 40), 75, new Color(0, 102, 153)));
-//      balls.add(new Ball(new Vector2(34, 147), new Vector2(345, 578), 25, new Color(204, 153, 0)));
-//      balls.add(new Ball(new Vector2(430, 456), new Vector2(34, 45), 35, new Color(152, 51, 0)));
+      balls.add(new Ball(new Vector2(256, 100), new Vector2(34, 500), 25, new Color(153, 204, 204)));
+      balls.add(new Ball(new Vector2(54, 156), new Vector2(50, 550), 45, new Color(0, 102, 255)));
+      balls.add(new Ball(new Vector2(400, 147), new Vector2(34, 40), 75, new Color(0, 102, 153)));
+      balls.add(new Ball(new Vector2(34, 147), new Vector2(345, 578), 25, new Color(204, 153, 0)));
+      balls.add(new Ball(new Vector2(430, 456), new Vector2(34, 45), 35, new Color(152, 51, 0)));
   }
 
 
@@ -75,6 +72,14 @@ public class Container extends JPanel implements Runnable
     Toolkit.getDefaultToolkit().sync();
   }
 
+//  public ArrayList<Ball[]> pruneAndSweep (ArrayList<Ball> colliders)
+//  {
+//    ArrayList<Ball> possibleCollisions = new ArrayList<>();
+//    for (Ball c: colliders) {
+//
+//    }
+//  }
+
   private void cycle ()
   {
     if (timeDiff == 0)
@@ -84,16 +89,16 @@ public class Container extends JPanel implements Runnable
     for (Ball b : balls)
     {
       Vector2 v = b.velocity.multiply(timeDiff/1000.0);
-      b.move(v);
-      Ball b1 = balls.get(0);
-      Ball b2 = balls.get(1);
-      Vector2 c = b1.checkBallCollisionContinuous(b2, v);
-      if (c != null)
+      for (Ball b2 : balls)
       {
-        b1.position = c;
-        b1.position.multiply(-1);
+        Vector2 c = b.checkBallCollisionContinuous(b2, v);
+        if (c != null)
+        {
+          b.position = c;
+        }
+        System.out.println(c);
       }
-      System.out.println(c);
+      b.move(v);
     }
   }
 

@@ -63,9 +63,11 @@ public class Ball implements Collider
       double aTarget = (targetDist / dist) * aActual;
       double bTarget = (targetDist / dist) * bActual;
 
-      Vector2 collisionVector = new Vector2(b2.position.x + (b1.position.x < b2.position.x ? aTarget : -aTarget), b2.position.y + (b1.position.y < b2.position.y ? bTarget : -bTarget));
+      Vector2 collisionVector = new Vector2(b2.position.x + (b1.position.x > b2.position.x ? aTarget : -aTarget), b2.position.y + (b1.position.y > b2.position.y ? bTarget : -bTarget));
+      // System.out.print(collisionVector);
       if ((current.y >= collisionVector.y && collisionVector.y >= next.y) || (current.y <= collisionVector.y && collisionVector.y <= next.y) && (current.x >= collisionVector.x && collisionVector.x >= next.x) || (current.x <= collisionVector.x && collisionVector.x <= next.x))
       {
+          System.out.println("Collision");
         return collisionVector;
       }
       else
@@ -161,15 +163,15 @@ public class Ball implements Collider
     return false;
   }
 
-  public static Pair<Vector2, Vector2> getCollisionResponseVelocity (Ball b1, Ball b2)
-  {
-      double m1 = b1.mass;
-      double m2 = b2.mass;
-      Vector2 c1 = b1.position;
-      Vector2 c2 = b2.position;
-      Vector2 v1 = b1.velocity;
-      Vector2 v2 = b2.velocity;
-      Vector2 top1 = v1.subtract(v2) c1.subtract(c2);
-      Vector2 vHat1 = v1.subtract(((2*m1)/(m1+m2)) * (top1));
-  }
+  // public static Pair<Vector2, Vector2> getCollisionResponseVelocity (Ball b1, Ball b2)
+  // {
+      // double m1 = b1.mass;
+      // double m2 = b2.mass;
+      // Vector2 c1 = b1.position;
+      // Vector2 c2 = b2.position;
+      // Vector2 v1 = b1.velocity;
+      // Vector2 v2 = b2.velocity;
+      // Vector2 top1 = v1.subtract(v2) c1.subtract(c2);
+      // Vector2 vHat1 = v1.subtract(((2*m1)/(m1+m2)) * (top1));
+  // }
 }

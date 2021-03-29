@@ -32,10 +32,10 @@ public class Container extends JPanel implements Runnable
       setBackground(new Color(255, 153, 51));
       setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-      balls.add(new Ball(new Vector2(256, 100), new Vector2(34, 500), 25, new Color(153, 204, 204)));
-      balls.add(new Ball(new Vector2(54, 156), new Vector2(50, 550), 45, new Color(0, 102, 255)));
+      // balls.add(new Ball(new Vector2(256, 100), new Vector2(34, 500), 25, new Color(153, 204, 204)));
+      // balls.add(new Ball(new Vector2(54, 156), new Vector2(50, 550), 45, new Color(0, 102, 255)));
       balls.add(new Ball(new Vector2(400, 147), new Vector2(34, 40), 75, new Color(0, 102, 153)));
-      balls.add(new Ball(new Vector2(34, 147), new Vector2(345, 578), 25, new Color(204, 153, 0)));
+      // balls.add(new Ball(new Vector2(34, 147), new Vector2(345, 578), 25, new Color(204, 153, 0)));
       balls.add(new Ball(new Vector2(430, 456), new Vector2(34, 45), 35, new Color(152, 51, 0)));
   }
 
@@ -91,12 +91,10 @@ public class Container extends JPanel implements Runnable
       Vector2 v = b.velocity.multiply(timeDiff/1000.0);
       for (Ball b2 : balls)
       {
-        Vector2 c = b.checkBallCollisionContinuous(b2, v);
-        if (c != null)
+        if (!b2.equals(b))
         {
-          b.position = c;
+            Vector2 c = b.checkBallCollisionContinuous(b2, v);
         }
-        System.out.println(c);
       }
       b.move(v);
     }

@@ -8,6 +8,12 @@ public class Vector2
     this.x = x;
     this.y = y;
   }
+  
+  public Vector2 (Vector2 other)
+  {
+      this.x = other.x;
+      this.y = other.y;
+  }
 
   public Vector2 subtract (Vector2 other)
   {
@@ -28,7 +34,19 @@ public class Vector2
     return new Vector2(this.x * other, this.y * other);
   }
 
-
+  public Vector2 exp (int power)
+  {
+      if (power == 0)
+      {
+          return new Vector2(0, 0);
+      }
+      Vector2 finalVector = new Vector2(this);
+      for (int i = 0; i < power-1; i++)
+      {
+          finalVector = finalVector.multiply(this);
+      }
+  }
+  
   @Override
   public String toString() {
     return "(" + x + ", " + y + ')';

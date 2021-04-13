@@ -171,7 +171,8 @@
       Vector2 c2 = b2.position;
       Vector2 v1 = b1.velocity;
       Vector2 v2 = b2.velocity;
-      Vector2 top1 = new Vector2(v1.magnitude() - v2.magnitude(), Vector2.distance(c1, c2);
+      Vector2 top1 = new Vector2(v1.magnitude() - v2.magnitude(), c1.magnitude() - c2.magnitude());
+      Vector2 bot1 = c1.subtract(c2).normalized().exp(2);
       Vector2 vHat1 = v1.subtract(((2*m1)/(m1+m2)) * (top1.divide(c1.subtract(c2).normalized())));
       
       

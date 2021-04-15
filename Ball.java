@@ -172,9 +172,13 @@
       Vector2 v1 = b1.velocity;
       Vector2 v2 = b2.velocity;
       Vector2 top1 = new Vector2(v1.magnitude() - v2.magnitude(), c1.magnitude() - c2.magnitude());
-      Vector2 bot1 = c1.subtract(c2).normalized().exp(2);
-      Vector2 vHat1 = v1.subtract(((2*m1)/(m1+m2)) * (top1.divide(c1.subtract(c2).normalized())));
+      double bot1 = c1.subtract(c2).normalized().dot(c1.subtract(c2).normalized());
+      Vector2 vHat1 = v1.subtract(((2*m2)/(m1+m2)).dot(top1.divide(bot1))).dot(c1.subtract(c2));
       
+      Vector2 top2 = new Vector2(v2.magnitude() - v1.magnitude(), c2.magnitude() - c1.magnitude());
+      double bot2 = c2.subtract(c1).normalized().dot(c2.subtract(c1).normalized());
+      Vector2 vHat2 = v1.subtract(((2*m1)/(m1+m2)).dot(top2.divide(bot2))).dot(c2.subtract(c1));
       
+      return new Pair(vHat1, vHat2);
   }
 }

@@ -19,6 +19,11 @@ public class Vector2
   {
     return new Vector2(this.x-other.x, this.y-other.y);
   }
+  
+  public Vector2 subtract (double scalar)
+  {
+    return new Vector2(this.x-scalar, this.y-scalar);
+  }
 
   public Vector2 add (Vector2 other)
   {

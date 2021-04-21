@@ -94,6 +94,12 @@ public class Container extends JPanel implements Runnable
         if (!b2.equals(b))
         {
             Vector2 c = b.checkBallCollisionContinuous(b2, v);
+            if (c != null) 
+            {
+                b2.velocity = b2.velocity.multiply(-1);
+                System.out.println(c);
+                b2.position = c;
+            }
         }
       }
       b.move(v);
